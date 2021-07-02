@@ -1,3 +1,0 @@
-2 types of classification
-Voice : Train the AI
-Text classification : Mood prediction (easy thing)
