@@ -3,6 +3,11 @@ from array import array
 import pyaudio
 import speech_recognition as sr
 
+from functools import partial
+from tqdm import tqdm
+tqdm = partial(tqdm, position=0, leave=True)
+
+
 
 class Turtle:
     def __init__(self,
@@ -25,7 +30,8 @@ class Turtle:
                             frames_per_buffer=self.CHUNK_SIZE)
 
         frames = []
-        for i in range(0, int(self.RATE / self.CHUNK_SIZE * duration)):
+        pbar = tqdm(range(0, int(self.RATE / self.CHUNK_SIZE * duration)))
+        for i in pbar:
             data = stream.read(self.CHUNK_SIZE)
             frames.append(data)
 

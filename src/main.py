@@ -13,10 +13,6 @@ from src.utils import UIHelper
 import emoji
 import keyboard
 import speech_recognition as sr
-from functools import partial
-from tqdm import tqdm
-
-tqdm = partial(tqdm, position=0, leave=True)
 
 # Turtles
 dbTurtle = databaseHelper.Turtle(filename=config.SpecAI.dbFile)
@@ -25,15 +21,15 @@ audioTurtle = audioHelper.Turtle(rate=config.audio.sampleRate)
 specTurtle = specAiHelper.Turtle()
 
 if __name__ == "__main__":
-    print(f"Press Enter to start recording for {config.audio.duration} seconds \nESC to exit")
+    print(f"Press Enter to start recording for {config.audio.duration} seconds \n"
+          f"ESC to exit")
     while True:
         if keyboard.is_pressed('enter'):
             # Record audio
             print("Recording started")
             audioTurtle.record(fname=config.audio.recordingPath,
                                duration=config.audio.duration)
-
-            print("Recording saved")
+            print("Recording saved!")
 
             # convert WAV to text (google TTS)
             try:
@@ -46,8 +42,7 @@ if __name__ == "__main__":
                                    fname=config.audio.specPath)
                 visTurtle.resizeImg(fname=config.audio.specPath,
                                     newSize=(config.UI.imgSize[0], config.UI.imgSize[1]))
-
-                print("Spec made!")
+                print("Spectogram made!")
 
                 # loading
                 specAiModel = dbTurtle.loadModel(config.SpecAI.modelPath, filetype="hdf5")
@@ -59,18 +54,18 @@ if __name__ == "__main__":
                                                size=config.UI.imgSize)
                 emojiID = UIHelper.getID(textValue=textVal,
                                          specValue=specVal[0])
-
-                # output
-                print(f"TextVal =  {textVal}\n"
-                      f"specVal = {specVal[0]}\n"
-                      f"emojiID = {emojiID} ")
-
                 face = UIHelper.getEmoji(emojiID)
 
+                # output
                 print(emoji.emojize(f"{text} {face}"))
 
+                print(f"Press Enter to start recording again for {config.audio.duration} seconds \n"
+                      f"ESC to exit")
+
             except sr.UnknownValueError:
-                print("Try again")
+                print("Something went wrong")
+                print(f"Press Enter to start recording to try again for {config.audio.duration} seconds \n"
+                      f"ESC to exit")
 
         elif keyboard.is_pressed('esc'):
             print("Exiting")

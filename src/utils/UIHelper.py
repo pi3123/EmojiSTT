@@ -1,7 +1,20 @@
 import random
+import time
 import numpy as np
 from keras.preprocessing import image
 from textblob import TextBlob
+
+from functools import partial
+from tqdm import tqdm
+
+tqdm = partial(tqdm, position=0, leave=True)
+
+
+def countdownTimer(secs):
+    pbar = tqdm(range(secs))
+    for i in pbar:
+        pbar.set_description(f"Time left {secs - i} seconds")
+        time.sleep(1)
 
 
 def textPredict(text):
@@ -73,5 +86,4 @@ def getID(textValue, specValue):
 
 
 if __name__ == '__main__':
-    print(getID(textValue=-1.0,
-                specValue=5))
+    countdownTimer(15)
