@@ -16,17 +16,6 @@ class Turtle:
         self.RATE = rate
         self.engine = sr.Recognizer()
 
-    @staticmethod
-    def normalize(data):
-        """ Average the volume out """
-        MAXIMUM = 16384
-        times = float(MAXIMUM) / max(abs(i) for i in data)
-
-        r = array('h')
-        for i in data:
-            r.append(int(i * times))
-        return r
-
     def record(self, fname, duration):
         audio = pyaudio.PyAudio()
         stream = audio.open(format=self.FORMAT,

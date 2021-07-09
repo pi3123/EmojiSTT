@@ -1,31 +1,9 @@
-import numpy as np
-from keras.preprocessing import image
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D, BatchNormalization
 
 
 class Turtle:
-    @staticmethod
-    def predict(model, imgPath, size):
-        """
-        :param size: dimensions of the img
-        :param imgPath: path of the image
-        :param model: Trained model from train() command
-        :return: the predicted answers
-        """
-        test_image = []
-        img = image.load_img(imgPath,
-                             target_size=size,
-                             color_mode="rgb" if size[2] == 3 else "grayscale")
-        img = image.img_to_array(img)
-        img = img / 255
-        test_image.append(img)
-        testArray = np.array(test_image)
-        prediction = np.argmax(model.predict(testArray), axis=-1)
-
-        return prediction
-
     @staticmethod
     def OneConvLayer(input_shape):
         """

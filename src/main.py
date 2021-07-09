@@ -12,6 +12,7 @@ from src.utils import UIHelper
 
 import emoji
 import keyboard
+import speech_recognition as sr
 from functools import partial
 from tqdm import tqdm
 
@@ -34,41 +35,42 @@ if __name__ == "__main__":
 
             print("Recording saved")
 
-            # convert WAV to spec
-            print("Converting recording to spectogram")
-            visTurtle.makeSpec(file=config.audio.recordingPath,
-                               fname=config.audio.specPath)
-            visTurtle.resizeImg(fname=config.audio.specPath,
-                                newSize=(config.UI.imgSize[0], config.UI.imgSize[1]))
-
-            print("Spec made!")
-
             # convert WAV to text (google TTS)
-            print("Converting recording to text ")
             try:
+                print("Converting recording to text ")
                 text = audioTurtle.wavToText(config.audio.recordingPath)
-                print(f"you said : {text}")
 
-            except Exception:
-                print("try again")
-                pass
+                # convert WAV to spec
+                print("Converting recording to spectogram")
+                visTurtle.makeSpec(file=config.audio.recordingPath,
+                                   fname=config.audio.specPath)
+                visTurtle.resizeImg(fname=config.audio.specPath,
+                                    newSize=(config.UI.imgSize[0], config.UI.imgSize[1]))
 
-            # load SpecModel
-            specAiModel = dbTurtle.loadModel(config.SpecAI.modelPath, filetype="hdf5")
+                print("Spec made!")
 
-            # load TextModel
-            # TODO: start using Textblob and combine the Text Emotion prediction and voice
-            textAiModel = dbTurtle.loadModel(config.TextEmoAI.modelPath, filetype="pickle")
+                # loading
+                specAiModel = dbTurtle.loadModel(config.SpecAI.modelPath, filetype="hdf5")
 
-            # prediction
-            textVal = textAiModel.predict([text])
+                # prediction
+                textVal = UIHelper.textPredict(text)
+                specVal = UIHelper.specPredict(model=specAiModel,
+                                               imgPath=config.audio.specPath,
+                                               size=config.UI.imgSize)
+                emojiID = UIHelper.getID(textValue=textVal,
+                                         specValue=specVal[0])
 
-            specVal = specTurtle.predict(model=specAiModel,
-                                         imgPath=config.audio.specPath,
-                                         size=config.UI.imgSize)
+                # output
+                print(f"TextVal =  {textVal}\n"
+                      f"specVal = {specVal[0]}\n"
+                      f"emojiID = {emojiID} ")
 
-            # output
-            print(emoji.emojize(f"{text} {UIHelper.getEmoji(specVal[0])}"))
+                face = UIHelper.getEmoji(emojiID)
+
+                print(emoji.emojize(f"{text} {face}"))
+
+            except sr.UnknownValueError:
+                print("Try again")
 
         elif keyboard.is_pressed('esc'):
             print("Exiting")

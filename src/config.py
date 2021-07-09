@@ -7,7 +7,7 @@ class UI:
 
 class audio:
     sampleRate = 44100
-    duration = 5
+    duration = 10
     recordingPath = "X:\Projects\EmojiSTT\\tmp\\recording.wav"
     specPath = "X:\Projects\EmojiSTT\\tmp\\spec.png"
 
@@ -35,11 +35,3 @@ class SpecAI:
     EPOCHS = [10, 25, 50, 100]
     MODEL_STRUCTURE_ID = [1, 2, 3]
     DATA_SIZE = [50, 500, 1000, 2000, None]
-
-
-class TextEmoAI:
-    trainPath = abspath("Data\\Text\\train")
-    testPath = abspath("Data\\Text\\test")
-
-    TextModelsFolder = abspath("Models\\Text")
-    modelPath = "X:\Projects\EmojiSTT\Models\Text\\textAi.sav"
