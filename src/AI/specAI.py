@@ -189,5 +189,5 @@ if __name__ == "__main__":
 
                     """ Saving model """
                     #                [size]_    [epochs]_   [modelID]_    [input_shape].h5
-                    modelName = f"{str(size)}_{str(epoch)}_{str(modelID)}_{str(input_shape)}.h5"
+                    modelName = f"{str(size)}_{str(epoch)}_{str(modelID)}_{str(input_shape).replace(' ', '')}.h5"
                     model.save(f"{config.SpecAI.SpecModelsFolder}\\{modelName}")

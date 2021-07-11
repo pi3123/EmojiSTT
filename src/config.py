@@ -27,7 +27,7 @@ class SpecAI:
     testCSV = abspath("Data\\Spec\\test.csv")
 
     SpecModelsFolder = abspath("Models\\Spec")
-    modelPath = "X:\Projects\EmojiSTT\Models\Spec\\700_25_2_(64, 64, 3).h5"
+    modelPath = "X:\Projects\EmojiSTT\Models\Spec\\700_25_2_(64,64,3).h5"
 
     # Training Config
     INPUT_SHAPES = [(64, 64, 3), (128, 128, 3), (256, 256, 3),
