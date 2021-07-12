@@ -4,11 +4,9 @@ import os
 import csv
 import random
 import pickle
-import numpy as np
 
 from tqdm import tqdm
 from tensorflow import keras
-from PIL import Image
 
 
 class Turtle:
@@ -21,7 +19,7 @@ class Turtle:
     @staticmethod
     def moveFiles(testFiles, trainFiles, TargetFolder, FolderFiles):
         """
-
+        Moving files.
         :param testFiles: Testing files path
         :param trainFiles: Training files path
         :param TargetFolder: Folder to move the files to
@@ -102,13 +100,14 @@ class Turtle:
         self.makeCSV(FolderFiles)
 
     @staticmethod
-    def getSize(imgpath):
-        img = Image.open(imgpath)
-        img = np.array(img)
-        return img.shape
-
-    @staticmethod
     def saveModel(model, modelpath, filetype):
+        """
+        Saving model
+        :param model: model object
+        :param modelpath: output path of the model
+        :param filetype: pickle or hdf5
+        :return:
+        """
         if filetype == "pickle":
             with open(modelpath, 'wb') as f:
                 pickle.dump(model, f)
@@ -118,6 +117,12 @@ class Turtle:
 
     @staticmethod
     def loadModel(modelpath, filetype):
+        """
+        loading model
+        :param modelpath: path of model
+        :param filetype: pickle or hdf5
+        :return:
+        """
         if filetype == "pickle":
             with open(modelpath, 'rb') as f:
                 model = pickle.load(f)

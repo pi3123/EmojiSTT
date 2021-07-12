@@ -1,12 +1,11 @@
 import wave
-from array import array
 import pyaudio
 import speech_recognition as sr
 
 from functools import partial
 from tqdm import tqdm
-tqdm = partial(tqdm, position=0, leave=True)
 
+tqdm = partial(tqdm, position=0, leave=True)
 
 
 class Turtle:
@@ -15,6 +14,11 @@ class Turtle:
                  chunkSize=1024,
                  form=pyaudio.paInt16,
                  rate=48000):
+        """
+        :param channels: 1 for mono, 2 for stereo
+        :param chunkSize: size of each chunk in WAV
+        :param rate: Bitrate of audio
+        """
         self.CHANNELS = channels
         self.CHUNK_SIZE = chunkSize
         self.FORMAT = form
@@ -22,6 +26,11 @@ class Turtle:
         self.engine = sr.Recognizer()
 
     def record(self, fname, duration):
+        """
+        :param fname: output filename
+        :param duration: duration of recording
+        :return:
+        """
         audio = pyaudio.PyAudio()
         stream = audio.open(format=self.FORMAT,
                             channels=self.CHANNELS,
@@ -40,16 +49,21 @@ class Turtle:
         audio.terminate()
 
         # writing to file
-        wavfile = wave.open(fname, 'wb')
-        wavfile.setnchannels(self.CHANNELS)
-        wavfile.setsampwidth(audio.get_sample_size(self.FORMAT))
-        wavfile.setframerate(self.RATE)
-        wavfile.writeframes(b''.join(frames))  # append frames recorded to file
-        wavfile.close()
+        wavFile = wave.open(fname, 'wb')
+        wavFile.setnchannels(self.CHANNELS)
+        wavFile.setsampwidth(audio.get_sample_size(self.FORMAT))
+        wavFile.setframerate(self.RATE)
+        wavFile.writeframes(b''.join(frames))  # append frames recorded to file
+        wavFile.close()
 
     def wavToText(self, file):
+        """
+        Google STT driver code
+        :param file:
+        :return:
+        """
         with sr.AudioFile(file) as source:
-            audio_data = self.engine.record(source)
-            text = self.engine.recognize_google(audio_data)
+            audioData = self.engine.record(source)
+            text = self.engine.recognize_google(audioData)
 
         return text

@@ -106,7 +106,6 @@ class Turtle:
 
     def getModel(self, modelID, input_shape):
         """
-
         :param modelID: ID of the model to return
         :param input_shape: shape of the img
         :return: model

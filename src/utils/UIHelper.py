@@ -11,6 +11,11 @@ tqdm = partial(tqdm, position=0, leave=True)
 
 
 def countdownTimer(secs):
+    """
+    Countdown timer with tqdm
+    :param secs: number of seconds for total recording
+    :return: None
+    """
     pbar = tqdm(range(secs))
     for i in pbar:
         pbar.set_description(f"Time left {secs - i} seconds")
@@ -18,11 +23,17 @@ def countdownTimer(secs):
 
 
 def textPredict(text):
+    """
+    TextBlob polarity prediction driver
+    :param text: str, text to passed to TextBlob
+    :return: float, polarity (-1 tp 1)
+    """
     return round(TextBlob(text).sentiment.polarity, 1)
 
 
 def specPredict(model, imgPath, size):
     """
+    specModel prediction driver
     :param size: dimensions of the img
     :param imgPath: path of the image
     :param model: Trained model from train() command
@@ -42,7 +53,11 @@ def specPredict(model, imgPath, size):
 
 
 def getEmoji(emotionID):
-    """ negative to positive"""
+    """
+    Returns emoji
+    :param emotionID:
+    :return: emoji string
+    """
     emotion_map = {
         0: [":pouting_face:"],  # angry 5
         1: [":nauseated_face:"],  # disgust 7
@@ -86,4 +101,6 @@ def getID(textValue, specValue):
 
 
 if __name__ == '__main__':
+    # Testing
+    print("testing countdown for 15 secs")
     countdownTimer(15)

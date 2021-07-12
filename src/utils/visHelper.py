@@ -13,12 +13,19 @@ class Turtle:
                  minMag=0.004416916563059203,
                  maxMag=2026134.8514368106
                  ):
+
         self.turtle = visTurtle(minMagnitude=minMag,
                                 maxMagnitude=maxMag,
                                 minPhase=-math.pi,
                                 maxPhase=math.pi)
 
     def makeSpec(self, file, fname):
+        """
+        Specto driver code.
+        :param file: Audio file path
+        :param fname: output file path
+        :return: None
+        """
         rate, audData = scipy.io.wavfile.read(file)
 
         # Combining 2 channels if needed
@@ -30,6 +37,12 @@ class Turtle:
 
     @staticmethod
     def resizeImg(fname, newSize):
+        """
+        resize image
+        :param fname: filename of the png
+        :param newSize: final size of the img
+        :return: None
+        """
         img = ImageFile.Image.open(fname)
         img = img.resize(newSize)
         img.save(fname, "PNG")

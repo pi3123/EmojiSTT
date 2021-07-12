@@ -1,8 +1,6 @@
 import sys
 import os
 
-sys.path.append(os.getcwd())
-
 from src import config
 from src.utils import databaseHelper
 from src.utils import visHelper
@@ -14,14 +12,16 @@ import emoji
 import keyboard
 import speech_recognition as sr
 
-# Turtles
+# Setup
+sys.path.append(os.getcwd())
 dbTurtle = databaseHelper.Turtle(filename=config.SpecAI.dbFile)
 visTurtle = visHelper.Turtle()
 audioTurtle = audioHelper.Turtle(rate=config.audio.sampleRate)
 specTurtle = specAiHelper.Turtle()
 
 if __name__ == "__main__":
-    print(f"Press Enter to start recording for {config.audio.duration} seconds \n"
+
+    print(f"Press Enter to start recordi ng for {config.audio.duration} seconds \n"
           f"ESC to exit")
     while True:
         if keyboard.is_pressed('enter'):

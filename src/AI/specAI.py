@@ -71,6 +71,7 @@ class Mouse:
 
     def train(self, data):
         """
+        training model
         :param data: Data from the preprocess function
         :return: trained model
         """
