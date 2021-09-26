@@ -4,6 +4,7 @@ import numpy as np
 from keras.preprocessing import image
 from textblob import TextBlob
 
+from src.AI import specAI
 from functools import partial
 from tqdm import tqdm
 
@@ -98,6 +99,23 @@ def getID(textValue, specValue):
 
     # calculating ID
     return round((textValue + specValue) / 2)
+
+
+# TkInter functions
+def micButton_pressed():
+    # TODO: Starts listening and the whole shebang
+    print("Mic Button Clicked")
+
+
+def settingsButton_pressed():
+    # TODO: Opens a new window to edit the settings from config file.
+    print("settings Button Clicked")
+
+
+def trainButton_pressed():
+    # TODO: Trains the spec model
+    print("train Button Clicked")
+    # specAI.train()
 
 
 if __name__ == '__main__':

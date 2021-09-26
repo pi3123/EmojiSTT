@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.append(os.getcwd())
 
 import random
@@ -69,7 +70,7 @@ class Mouse:
 
         return X_train, X_test, y_train, y_test
 
-    def train(self, data):
+    def fit(self, data):
         """
         training model
         :param data: Data from the preprocess function
@@ -82,7 +83,7 @@ class Mouse:
         model.fit(data[0], data[2], epochs=self.epoch, validation_data=(data[1], data[3]))
         return model
 
-    def evaluate(self):
+    def evaluate(self, model):
         """
         :return: accuracy score
         """
@@ -115,8 +116,7 @@ class Mouse:
         return int(100 * (points / len(prediction)))
 
 
-if __name__ == "__main__":
-
+def train():
     visTurtle = visHelper.Turtle()
 
     # reset Log file
@@ -171,12 +171,12 @@ if __name__ == "__main__":
                     data = specAI.preprocess()
 
                     # training model
-                    model = specAI.train(data)
+                    model = specAI.fit(data)
 
                     # evaluating
                     score = 0
                     for i in range(5):
-                        score += specAI.evaluate()
+                        score += specAI.evaluate(model)
                     score = score / 5
 
                     """ Logging """
@@ -192,3 +192,7 @@ if __name__ == "__main__":
                     #                [size]_    [epochs]_   [modelID]_    [input_shape].h5
                     modelName = f"{str(size)}_{str(epoch)}_{str(modelID)}_{str(input_shape).replace(' ', '')}.h5"
                     model.save(f"{config.SpecAI.SpecModelsFolder}\\{modelName}")
+
+
+if __name__ == "__main__":
+    train()

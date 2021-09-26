@@ -1,6 +1,3 @@
-from os.path import abspath
-
-
 class UI:
     imgSize = (64, 64, 3)
 
@@ -14,19 +11,19 @@ class audio:
 
 class SpecAI:
     # Paths for training SpecAI
-    audioFolder = abspath("Data\\Audio")
-    dbFile = abspath("Data\\Audio\\table.json")
-    logFile = abspath("tmp\\output.txt")
+    audioFolder = "X:\Projects\EmojiSTT\Data\Audio"
+    dbFile = "X:\Projects\EmojiSTT\Data\Audio\\table.json"
+    logFile = "X:\Projects\EmojiSTT\\tmp\output.txt"
 
-    specFolder = abspath("Data\\Spec")
+    specFolder = "X:\Projects\EmojiSTT\Data\Spec"
 
-    trainFolder = abspath("Data\\Spec\\Train")
-    trainCSV = abspath("Data\\Spec\\train.csv")
+    trainFolder = "X:\Projects\EmojiSTT\Data\Spec\Train"
+    trainCSV = "X:\Projects\EmojiSTT\Data\Spec\\train.csv"
 
-    testFolder = abspath("Data\\Spec\\Test")
-    testCSV = abspath("Data\\Spec\\test.csv")
+    testFolder = "X:\Projects\EmojiSTT\Data\Spec\Test"
+    testCSV = "X:\Projects\EmojiSTT\Data\Spec\\test.csv"
 
-    SpecModelsFolder = abspath("Models\\Spec")
+    SpecModelsFolder = "X:\Projects\EmojiSTT\Models\Spec"
     modelPath = "X:\Projects\EmojiSTT\Models\Spec\\700_25_2_(64,64,3).h5"
 
     # Training Config
