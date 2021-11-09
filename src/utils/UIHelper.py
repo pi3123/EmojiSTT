@@ -3,6 +3,7 @@ import time
 import numpy as np
 from keras.preprocessing import image
 from textblob import TextBlob
+from gingerit.gingerit import GingerIt
 
 from src.AI import specAI
 from functools import partial
@@ -31,6 +32,13 @@ def textPredict(text):
     """
     return round(TextBlob(text).sentiment.polarity, 1)
 
+def grammarCheck(text):
+  """
+  text : text from the STT engine
+  returns the grammar correct text
+  """
+  parser = GingerIt()
+  return parser.parse(text)
 
 def specPredict(model, imgPath, size):
     """
